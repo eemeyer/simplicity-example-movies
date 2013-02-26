@@ -1,6 +1,6 @@
 $(function() {
     $('body').simplicityState();
-    $('#q,#genre,#runtime').simplicityInputs();
+    $('#q,#genre,#rating,#runtime').simplicityInputs();
     $('#initial_release_year_min,#initial_release_year_max').simplicityInputs().each(function() {
         var yr = 1888;
         var currentYear = new Date().getFullYear();
@@ -8,9 +8,12 @@ $(function() {
             $(this).append($('<option/>').text(yr));
         }
     });
-    $('#genre').simplicityFacetedSelect().hide();
+    $('#genre,#rating').simplicityFacetedSelect().hide();
     $('#genre_fancy').simplicityFancySelect({
         select: '#genre'
+    });
+    $('#rating_fancy').simplicityFancySelect({
+        select: '#rating'
     });
     $('#results').simplicitySearchResults({
         resultsCallback: window.search_results

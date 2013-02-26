@@ -11,6 +11,10 @@
                 genre: {
                     sortBy: 'countDesc',
                     topN: 15
+                },
+                rating: {
+                    sortBy: 'countDesc',
+                    topN: 15
                 }
             },
             startIndex: state.page ? (pageSize * (state.page - 1)) : 0,
@@ -27,6 +31,12 @@
             request.criteria.push({
                 dimension: 'genre',
                 id: state.genre
+            });
+        }
+        if (state.rating) {
+            request.criteria.push({
+                dimension: 'rating',
+                id: state.rating
             });
         }
         if (state.runtime) {
