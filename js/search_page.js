@@ -2,9 +2,9 @@ $(function() {
     $('body').simplicityState();
     $('#q,#genre,#runtime').simplicityInputs();
     $('#initial_release_year_min,#initial_release_year_max').simplicityInputs().each(function() {
-        var currentYear, yr;
-        currentYear = new Date().getFullYear();
-        for (yr = 1888; yr <= currentYear; ++yr) {
+        var yr = 1888;
+        var currentYear = new Date().getFullYear();
+        for (; yr <= currentYear; ++yr) {
             $(this).append($('<option/>').text(yr));
         }
     });
