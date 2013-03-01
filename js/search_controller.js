@@ -10,16 +10,19 @@
             facets: {
                 genre: {
                     sortBy: 'countDesc',
-                    topN: 15
+                    topN: 15,
+                    depth: 0
                 },
                 rating: {
                     sortBy: 'countDesc',
-                    topN: 15
+                    topN: 15,
+                    depth: 0
                 }
             },
             startIndex: state.page ? (pageSize * (state.page - 1)) : 0,
             pageSize: pageSize
         };
+        request.criteria.push({dimension: 'genre', weight: 0, cull: true});
         if (state.q) {
             request.criteria.push({
                 dimension: 'freetext',
