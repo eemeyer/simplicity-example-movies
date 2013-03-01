@@ -22,6 +22,7 @@
             pageSize: pageSize
         };
         request.criteria.push({dimension: 'genre', weight: 0, cull: true});
+        request.criteria.push({dimension: 'genre_kw', weight:0, notValue:['Hardcore pornography','Pornographic movie'], cull: true});
         if (state.q) {
             request.criteria.push({
                 dimension: 'freetext',
