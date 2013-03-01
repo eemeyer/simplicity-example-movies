@@ -4,6 +4,7 @@
         var discoveryResponse = data._discovery.response;
         results.find(".exact").text(discoveryResponse.exactSize);
         results.find(".total").text(discoveryResponse.totalSize);
+        var imageUrlTemplate = 'https://usercontent.googleapis.com/freebase/v1/image{id}?maxheight=150&maxwidth=150&pad=true';
         $.each(discoveryResponse.itemIds, function (itemIndex, itemId) {
             var item = {
                 '_id': itemId,
@@ -18,8 +19,10 @@
                 '</div>')
                 .attr('id', 'result-' + itemId)
                 .addClass(item._exact ? 'ui-state-active' : 'ui-priority-secondary');
+            row.append($('<img/>').attr('src', imageUrlTemplate.replace('{id}', item._locator)));
             if (item.name) {
                 row.append($('<div class="movie-name"/>').text(item.name));
+                row.find('img').attr('title', item.name).attr('alt', item.name);
             }
             results.append(row);
         });
