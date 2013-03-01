@@ -15,26 +15,54 @@
                 $.extend(item, discoveryResponse.properties[itemIndex]);
             }
             var row = $('' +
-                '<div class="freebase-movie ui-widget-content ui-corner-all">' +
+                '<div class="row film-result">' +
+                '  <div class="row">' +
+                '    <div class="span2" data="left"></div>' +
+                '    <div class="span7" data="right"></div>' +
+                '  </div>' +
                 '</div>')
-                .attr('id', 'result-' + itemId)
-                .addClass(item._exact ? 'ui-state-active' : 'ui-priority-secondary');
-            row.append($('<img class="img-polaroid"/>').attr('src', imageUrlTemplate.replace('{id}', item._locator)));
+                .attr('id', 'result-' + itemId);
+            row.addClass(item._exact ? 'exactmatch' : 'closematch');
+            var left = row.find('[data="left"]').removeAttr('data');
+            var right = row.find('[data="right"]').removeAttr('data');
+            left.append($('<img class="img-polaroid"/>').attr('src', imageUrlTemplate.replace('{id}', item._locator)));
+            left.append($('<span/>').text(item._exact ? 'Exact match' : 'Close match'));
+            var nameAndReleaseDate = $('<div class="film-name-and-year"/>');
             if (item.name) {
-                row.append($('<div class="movie-name"/>').html(item.name));
-                row.find('img').attr('title', item.name).attr('alt', item.name);
+                nameAndReleaseDate.append($('<span  class="film-name"/>').html(item.name));
+                right.append($(nameAndReleaseDate));
+                var cleanedName = $('<span>' + item.name + '</span>').text();
+                left.find('img').attr('title', cleanedName).attr('alt', cleanedName);
+            }
+            if (item.initial_release_date) {
+                var release_year = item.initial_release_date.match(/\d\d\d\d/);
+                if ($.isArray(release_year) && release_year.length === 1) {
+                    nameAndReleaseDate.append($('<span class="film-release-year"/>').text('(' + release_year[0] + ')'));
+                }
+            }
+            if ($.isArray(item.rating) && item.rating.length > 0) {
+                right.append($('<span class="film-rating"/>').html(item.rating.join('|')));
+            }
+            if (item.runtime_runtime) {
+                if ($.isArray(item.rating) && item.rating.length > 0) {
+                    right.append(' ');
+                }
+                right.append($('<span class="film-runtime"/>').text(item.runtime_runtime.replace(/\.0$/, '') + ' minutes'));
+            }
+            if ($.isArray(item.genre) && item.genre.length > 0) {
+                right.append($('<div class="film-genre">').html(item.genre.join(' | ')));
             }
             if (item.tagline) {
-                var taglines = splitOnComma(item.tagline);
+                var taglines = splitOnAmbiguousComma(item.tagline);
                 $.each(taglines, function (idx, value) {
-                    row.append($('<div/>').html(value));
+                    right.append($('<div class="film-tagline"/>').html(value));
                 });
             }
             if ($.isArray(item.directed_by) && item.directed_by.length > 0) {
-                row.append($('<div/>').html('A film by ' + arrayToSentenceFragment(item.directed_by)));
+                right.append($('<div class="film-director"/>').html('A film by ' + arrayToSentenceFragment(item.directed_by)));
             }
             if ($.isArray(item.written_by) && item.written_by.length > 0) {
-                row.append($('<div/>').html('Written by ' + arrayToSentenceFragment(item.written_by)));
+                right.append($('<div class="film-writer"/>').html('Written by ' + arrayToSentenceFragment(item.written_by)));
             }
             if ($.isArray(item.starring_actor) && item.starring_actor.length > 0) {
                 var use_characters = $.isArray(item.starring_character) && item.starring_actor.length === item.starring_character.length;
@@ -50,19 +78,7 @@
                 } else {
                     starring = item.starring_actor;
                 }
-                row.append($('<div/>').html('Starring ' + arrayToSentenceFragment(starring)));
-            }
-            if ($.isArray(item.rating) && item.rating.length > 0) {
-                row.append($('<div/>').html('Rated ' + item.rating.join(', ')));
-            }
-            if (item.runtime_runtime) {
-                row.append($('<div/>').text(item.runtime_runtime.replace(/\.0$/, '') + ' minutes'));
-            }
-            if (item.initial_release_date) {
-                row.append($('<div/>').text('Released ' + item.initial_release_date));
-            }
-            if ($.isArray(item.genre) && item.genre.length > 0) {
-                row.append($('<div>').html(item.genre.join(', ')));
+                right.append($('<div class="film-starring"/>').html('Starring ' + arrayToSentenceFragment(starring)));
             }
             results.append(row);
         });
@@ -85,7 +101,7 @@
         });
         return result;
     }
-    function splitOnComma(value) {
+    function splitOnAmbiguousComma(value) {
         var intermediate = value.split(',');
         var result = [];
         var nonWhitespace = /\S/;
