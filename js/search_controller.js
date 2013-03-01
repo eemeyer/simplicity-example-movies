@@ -14,7 +14,6 @@
                     depth: 0
                 },
                 rating: {
-                    sortBy: 'countDesc',
                     topN: 15,
                     depth: 0
                 }
