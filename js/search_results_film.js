@@ -19,10 +19,16 @@
                 '</div>')
                 .attr('id', 'result-' + itemId)
                 .addClass(item._exact ? 'ui-state-active' : 'ui-priority-secondary');
-            row.append($('<img/>').attr('src', imageUrlTemplate.replace('{id}', item._locator)));
+            row.append($('<img class="img-polaroid"/>').attr('src', imageUrlTemplate.replace('{id}', item._locator)));
             if (item.name) {
                 row.append($('<div class="movie-name"/>').html(item.name));
                 row.find('img').attr('title', item.name).attr('alt', item.name);
+            }
+            if (item.tagline) {
+                var taglines = splitOnComma(item.tagline);
+                $.each(taglines, function (idx, value) {
+                    row.append($('<div/>').html(value));
+                });
             }
             if ($.isArray(item.directed_by) && item.directed_by.length > 0) {
                 row.append($('<div/>').html('A film by ' + arrayToSentenceFragment(item.directed_by)));
@@ -34,8 +40,8 @@
                 var use_characters = $.isArray(item.starring_character) && item.starring_actor.length === item.starring_character.length;
                 var starring = [];
                 if (use_characters) {
-                    $.each(item.starring_actor, function (idx, val) {
-                        var desc = val;
+                    $.each(item.starring_actor, function (idx, value) {
+                        var desc = value;
                         if (item.starring_character[idx] !== '') {
                             desc += ' as ' + item.starring_character[idx];
                         }
@@ -46,13 +52,25 @@
                 }
                 row.append($('<div/>').html('Starring ' + arrayToSentenceFragment(starring)));
             }
+            if ($.isArray(item.rating) && item.rating.length > 0) {
+                row.append($('<div/>').html('Rated ' + item.rating.join(', ')));
+            }
+            if (item.runtime_runtime) {
+                row.append($('<div/>').text(item.runtime_runtime.replace(/\.0$/, '') + ' minutes'));
+            }
+            if (item.initial_release_date) {
+                row.append($('<div/>').text('Released ' + item.initial_release_date));
+            }
+            if ($.isArray(item.genre) && item.genre.length > 0) {
+                row.append($('<div>').html(item.genre.join(', ')));
+            }
             results.append(row);
         });
         target.html(results.contents());
     };
     function arrayToSentenceFragment(values) {
         var result = '';
-        $.each(values, function (idx, val) {
+        $.each(values, function (idx, value) {
             if (idx !== 0) {
                 if (values.length > 2) {
                     result += ', ';
@@ -63,7 +81,20 @@
                     result += 'and ';
                 }
             }
-            result += val;
+            result += value;
+        });
+        return result;
+    }
+    function splitOnComma(value) {
+        var intermediate = value.split(',');
+        var result = [];
+        var nonWhitespace = /\S/;
+        $.each(intermediate, function (idx, value) {
+            if (idx === 0 || value[0].match(nonWhitespace)) {
+                result.push(value);
+            } else {
+                result[result.length - 1] = result[result.length - 1] + ',' + value;
+            }
         });
         return result;
     }
