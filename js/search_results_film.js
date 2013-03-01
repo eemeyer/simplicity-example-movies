@@ -24,8 +24,31 @@
                 row.append($('<div class="movie-name"/>').text(item.name));
                 row.find('img').attr('title', item.name).attr('alt', item.name);
             }
+            if (item.directed_by && item.directed_by.length > 0) {
+                row.append($('<div/>').text('A film by ' + arrayToSentenceFragment(item.directed_by)));
+            }
+            if (item.written_by && item.written_by.length > 0) {
+                row.append($('<div/>').text('Written by ' + arrayToSentenceFragment(item.written_by)));
+            }
             results.append(row);
         });
         target.html(results.contents());
     };
+    function arrayToSentenceFragment(values) {
+        var result = '';
+        $.each(values, function (idx, val) {
+            if (idx !== 0) {
+                if (values.length > 2) {
+                    result += ', ';
+                } else {
+                    result += ' ';
+                }
+                if (idx === values.length - 1) {
+                    result += 'and ';
+                }
+            }
+            result += val;
+        });
+        return result;
+    }
 })($, window);
