@@ -21,14 +21,14 @@
                 .addClass(item._exact ? 'ui-state-active' : 'ui-priority-secondary');
             row.append($('<img/>').attr('src', imageUrlTemplate.replace('{id}', item._locator)));
             if (item.name) {
-                row.append($('<div class="movie-name"/>').text(item.name));
+                row.append($('<div class="movie-name"/>').html(item.name));
                 row.find('img').attr('title', item.name).attr('alt', item.name);
             }
-            if (item.directed_by && item.directed_by.length > 0) {
-                row.append($('<div/>').text('A film by ' + arrayToSentenceFragment(item.directed_by)));
+            if ($.isArray(item.directed_by) && item.directed_by.length > 0) {
+                row.append($('<div/>').html('A film by ' + arrayToSentenceFragment(item.directed_by)));
             }
-            if (item.written_by && item.written_by.length > 0) {
-                row.append($('<div/>').text('Written by ' + arrayToSentenceFragment(item.written_by)));
+            if ($.isArray(item.written_by) && item.written_by.length > 0) {
+                row.append($('<div/>').html('Written by ' + arrayToSentenceFragment(item.written_by)));
             }
             results.append(row);
         });
