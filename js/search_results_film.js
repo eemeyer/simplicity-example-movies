@@ -30,6 +30,22 @@
             if ($.isArray(item.written_by) && item.written_by.length > 0) {
                 row.append($('<div/>').html('Written by ' + arrayToSentenceFragment(item.written_by)));
             }
+            if ($.isArray(item.starring_actor) && item.starring_actor.length > 0) {
+                var use_characters = $.isArray(item.starring_character) && item.starring_actor.length === item.starring_character.length;
+                var starring = [];
+                if (use_characters) {
+                    $.each(item.starring_actor, function (idx, val) {
+                        var desc = val;
+                        if (item.starring_character[idx] !== '') {
+                            desc += ' as ' + item.starring_character[idx];
+                        }
+                        starring.push(desc);
+                    });
+                } else {
+                    starring = item.starring_actor;
+                }
+                row.append($('<div/>').html('Starring ' + arrayToSentenceFragment(starring)));
+            }
             results.append(row);
         });
         target.html(results.contents());
