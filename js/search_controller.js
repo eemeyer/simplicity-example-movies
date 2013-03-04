@@ -10,7 +10,7 @@
             facets: {
                 genre: {
                     sortBy: 'countDesc',
-                    topN: 15,
+                    topN: 30,
                     depth: 0
                 },
                 rating: {
