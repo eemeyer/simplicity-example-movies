@@ -32,25 +32,30 @@
                                 <input id="q" name="q" type="text" class="span2" placeholder="Keyword search">
                                 <button class="btn" type="button">Go!</button>
                             </div>
-                            <label>Release Year
-                                <select id="initial_release_year_min" name="initial_release_year_min">
-                                  <option value="">Select</option>
+                            <div id="initial_release_year">
+                                <label>Release Year</label>
+                                <div id="initial_release_year_slider"></div>
+                                <select name="initial_release_year_min">
+                                    <option value="">Any</option>
                                 </select>
                                 -
-                                <select id="initial_release_year_max" name="initial_release_year_max">
-                                  <option value="">Select</option>
+                                <select name="initial_release_year_max">
+                                    <option value="">Any</option>
                                 </select>
-                            </label>
-                            <label>Run time (minutes)
-                              <input id="runtime" name="runtime"/>
-                            </label>
+                            </div>
+                            <label>Run time (minutes)</label>
+                            <div id="runtime_slider"></div>
+                            <div id="runtime_inputs">
+                                <input name="runtime_min"/>
+                                -
+                                <input name="runtime_max"/>
+                            </div>
                             <label>Rating
                                 <select id="rating" name="rating" multiple="multiple">
                                     <option value="">Select</option>
                                 </select>
                             </label>
                             <div id="rating_fancy"></div>
-                            </label>
                             <label>Genre
                                 <select id="genre" name="genre" multiple="multiple">
                                     <option value="">Select</option>
@@ -59,7 +64,6 @@
                             <div id="genre_fancy"></div>
                             <hr />
                             <button type="button" name="resetSearch" class="btn">Reset Search</button>
-                            </label>
                         </fieldset>
                     </form>
                 </div>

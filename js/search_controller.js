@@ -22,7 +22,6 @@
             pageSize: pageSize
         };
         request.criteria.push({dimension: 'genre', weight: 0, cull: true});
-        request.criteria.push({dimension: 'genre_kw', weight:0, notValue:['Hardcore pornography','Pornographic movie'], cull: true});
         if (state.q) {
             request.criteria.push({
                 dimension: 'freetext',
@@ -42,10 +41,14 @@
                 id: state.rating
             });
         }
-        if (state.runtime) {
+        if (state.runtime_min || state.runtime_max) {
+            var min = Number(state.runtime_min);
+            var max = Number(state.runtime_max);
+            min = isNaN(min) ? "" : min;
+            max = isNaN(max) ? "" : max;
             request.criteria.push({
                 dimension: 'runtime_runtime',
-                value: state.runtime
+                value: '[' + min + ',' + max + ']'
             });
         }
         if (state.initial_release_year_min || state.initial_release_year_max) {

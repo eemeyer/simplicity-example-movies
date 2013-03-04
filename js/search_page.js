@@ -1,12 +1,28 @@
 $(function() {
     $('body').simplicityState();
-    $('#q,#genre,#rating,#runtime').simplicityInputs();
-    $('#initial_release_year_min,#initial_release_year_max').simplicityInputs().each(function() {
+    $('#q,#genre,#rating').simplicityInputs();
+    $('#initial_release_year select').simplicityInputs().attr('disabled', 'disabled');
+    $('#initial_release_year select:first').each(function() {
         var yr = 1888;
         var currentYear = new Date().getFullYear();
         for (; yr <= currentYear; ++yr) {
             $(this).append($('<option/>').text(yr));
         }
+    });
+    $('#initial_release_year_slider').simplicitySelectSlider({
+        select:  '#initial_release_year select[name="initial_release_year_min"]',
+        secondSelect: '#initial_release_year select[name="initial_release_year_max"]',
+        showLabels: false,
+        showTooltip: false,
+        populateSecondSelect: true
+    });
+    $('input[name="runtime_min"],input[name="runtime_max"]').simplicityInputs().attr('disabled', 'disabled');
+    $('#runtime_slider').simplicitySlider({
+      input: ['input[name="runtime_min"]', 'input[name="runtime_max"]'],
+      min: 0,
+      max: 361,
+      values: [0,360],
+      any: [0, 361]
     });
     $('#genre,#rating').simplicityFacetedSelect().hide();
     $('#genre_fancy').simplicityFancySelect({
