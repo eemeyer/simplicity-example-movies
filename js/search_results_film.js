@@ -4,7 +4,7 @@
         var discoveryResponse = data._discovery.response;
         results.find(".exact").text(discoveryResponse.exactSize);
         results.find(".total").text(discoveryResponse.totalSize);
-        var imageUrlTemplate = 'https://usercontent.googleapis.com/freebase/v1/image{id}?maxheight=150&maxwidth=150&pad=true';
+        var imageUrlTemplate = 'https://usercontent.googleapis.com/freebase/v1/image{id}?maxheight=150&maxwidth=150&pad=true&key=AIzaSyDf2i19WtZ53A9TiZ2W5zZ-otiAbR1hS8s';
         $.each(discoveryResponse.itemIds, function (itemIndex, itemId) {
             var item = {
                 '_id': itemId,
