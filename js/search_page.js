@@ -50,3 +50,9 @@ $(function() {
         })
         .simplicityDiscoverySearch('search');
 });
+
+function minutesToText(mins) {
+    var hours = Math.floor(mins / 60);
+    var minutes = mins % 60;
+    return hours + ':' + (minutes < 10 ? '0' : '') + minutes;
+}

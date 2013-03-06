@@ -48,7 +48,8 @@
                 if ($.isArray(item.rating) && item.rating.length > 0) {
                     right.append(' ');
                 }
-                right.append($('<span class="film-runtime"/>').text(item.runtime_runtime.replace(/\.0$/, '') + ' minutes'));
+                var runtime = !/.*\.0$/.test(item.runtime_runtime) ? item.runtime_runtime + ' minutes' :  minutesToText(item.runtime_runtime);
+                right.append($('<span class="film-runtime"/>').text(runtime));
             }
             if ($.isArray(item.genre) && item.genre.length > 0) {
                 right.append($('<div class="film-genre">').html(item.genre.join(' | ')));
