@@ -36,3 +36,8 @@
 #searchform {
     padding-right: 2em;
 }
+
+#rating_fancy ul,
+#genre_fancy ul {
+    margin: 0;
+}
