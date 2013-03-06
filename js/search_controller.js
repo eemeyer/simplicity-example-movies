@@ -58,11 +58,14 @@
                 dimension: 'initial_release_year',
                 value: '[' + initial_release_year_min + ',' + initial_release_year_max + ']'
             });
-        }
-        if (request.criteria.length ===  0) {
-            // If no search criteria were provided, we can
-            // configure a default search here.
-            request.criteria.push({dimension: '_kind'});
+        } else {
+            var currentYear = new Date().getFullYear();
+            request.criteria.push({
+                dimension: 'initial_release_year',
+                value: '[' + currentYear + ',?]',
+                exactMatch: true,
+                weight: 0.01
+            });
         }
         return request;
     };
