@@ -41,7 +41,6 @@ $(function() {
         input: ['input[name="initial_release_year_min"]', 'input[name="initial_release_year_max"]'],
         min: 1887,
         max: currentYear + 1,
-        values: [1888, currentYear],
         any:[1887, currentYear + 1],
         range: true
     });
@@ -49,7 +48,6 @@ $(function() {
       input: ['input[name="runtime_min"]', 'input[name="runtime_max"]'],
       min: 0,
       max: 361,
-      values: [0,360],
       any: [0, 361],
       range: true
     });
