@@ -31,6 +31,10 @@
     padding-right: 2em;
 }
 
+#searchform label{
+    margin-top: 0.5em;
+}
+
 #rating_fancy ul,
 #genre_fancy ul {
     margin: 0;
