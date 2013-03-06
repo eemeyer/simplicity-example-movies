@@ -27,7 +27,9 @@
             var left = row.find('[data="left"]').removeAttr('data');
             var right = row.find('[data="right"]').removeAttr('data');
             left.append($('<img class="img-polaroid"/>').attr('src', imageUrlTemplate.replace('{id}', item._locator)));
-            left.append($('<span/>').text(item._exact ? 'Exact match' : 'Close match'));
+            if (!item._exact) {
+                left.append($('<span/>').text('Close match'));
+            }
             var nameAndReleaseDate = $('<div class="film-name-and-year"/>');
             if (item.name) {
                 nameAndReleaseDate.append($('<span  class="film-name"/>').html(item.name));
