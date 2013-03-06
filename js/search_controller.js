@@ -54,12 +54,6 @@
         if (state.initial_release_year_min || state.initial_release_year_max) {
             var initial_release_year_min = state.initial_release_year_min || '';
             var initial_release_year_max = state.initial_release_year_max || '';
-            if (initial_release_year_min !== '' && initial_release_year_max !== '') {
-                if (Number(initial_release_year_min) > Number(initial_release_year_max)) {
-                    initial_release_year_min = state.initial_release_year_max;
-                    initial_release_year_max = state.initial_release_year_min;
-                }
-            }
             request.criteria.push({
                 dimension: 'initial_release_year',
                 value: '[' + initial_release_year_min + ',' + initial_release_year_max + ']'

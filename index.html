@@ -40,23 +40,15 @@
                             </div>
                             <button type="button" name="resetSearch" class="btn">Reset Search</button>
                             <div id="initial_release_year">
-                                <label>Release Year</label>
+                                <label>Released: <span id="initial_release_year_criteria_desc"></span></label>
                                 <div id="initial_release_year_slider"></div>
-                                <select name="initial_release_year_min">
-                                    <option value="">Any</option>
-                                </select>
-                                -
-                                <select name="initial_release_year_max">
-                                    <option value="">Any</option>
-                                </select>
+                                <input name="initial_release_year_min" type="hidden"/>
+                                <input name="initial_release_year_max" type="hidden"/>
                             </div>
-                            <label>Run time (minutes)</label>
+                            <label>Run time: <span id="runtime_criteria_desc"></span></label>
                             <div id="runtime_slider"></div>
-                            <div id="runtime_inputs">
-                                <input name="runtime_min"/>
-                                -
-                                <input name="runtime_max"/>
-                            </div>
+                            <input name="runtime_min" type="hidden"/>
+                            <input name="runtime_max" type="hidden"/>
                             <label>Rating
                                 <select id="rating" name="rating" multiple="multiple">
                                     <option value="">Select</option>
