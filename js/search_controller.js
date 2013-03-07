@@ -55,20 +55,22 @@
                 value: '[' + min + ',' + max + ']'
             });
         }
+        var currentYear = String(new Date().getFullYear());
         if (state.initial_release_year_min || state.initial_release_year_max) {
             var initial_release_year_min = state.initial_release_year_min || '';
             var initial_release_year_max = state.initial_release_year_max || '';
             request.criteria.push({
                 dimension: 'initial_release_year',
-                value: '[' + initial_release_year_min + ',' + initial_release_year_max + ']'
+                value: '[' + initial_release_year_min + ',' + initial_release_year_max + ']',
+                max: currentYear
             });
         } else {
-            var currentYear = new Date().getFullYear();
             request.criteria.push({
                 dimension: 'initial_release_year',
-                value: '[' + currentYear + ',?]',
+                value: currentYear,
+                max: currentYear,
                 exactMatch: true,
-                weight: 0.01
+                weight: 0.000001
             });
         }
         return request;
