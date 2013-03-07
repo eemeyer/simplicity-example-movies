@@ -26,7 +26,11 @@
             request.criteria.push({
                 dimension: 'freetext',
                 value: state.q,
-                cull: true
+                cull: true,
+                fieldBoosts: {
+                    name: 10
+                },
+                exactRequires: 'all'
             });
         }
         if (state.genre) {
