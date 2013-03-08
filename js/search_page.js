@@ -1,35 +1,4 @@
 $(function() {
-    $('input[name="runtime_min"],input[name="runtime_max"]').bind('change', function (evt) {
-        var message = '';
-        var min = $('input[name="runtime_min"]').val();
-        var max = $('input[name="runtime_max"]').val();
-        if (min === '' && max === '') {
-            message = 'any length';
-        } else if (min === '') {
-            message = 'up to ' + minutesToText(max);
-        } else if (max === '') {
-            message = 'at least ' + minutesToText(min);
-        } else {
-            message = 'from ' + minutesToText(min) + ' to ' + minutesToText(max);
-        }
-        $('#runtime_criteria_desc').text(message);
-    }).change();
-    $('input[name="initial_release_year_min"],input[name="initial_release_year_max"]').bind('change', function (evt) {
-        var message = '';
-        var min = $('input[name="initial_release_year_min"]').val();
-        var max = $('input[name="initial_release_year_max"]').val();
-        if (min === '' && max === '') {
-            message = 'in any year';
-        } else if (min === '') {
-            message = 'through ' + max;
-        } else if (max === '') {
-            message = 'after ' + min;
-        } else {
-            message = '' + min + ' - ' + max;
-        }
-        $('#initial_release_year_criteria_desc').text(message);
-    }).change();
-
     $('body').simplicityState();
     $('' +
         '#q,#genre,#rating,' +
@@ -43,14 +12,42 @@ $(function() {
         max: currentYear + 1,
         any:[1887, currentYear + 1],
         range: true
-    });
+    }).bind('slide slidechange', function (evt, ui) {
+        var min = ui.values[0] === 1887 ? '' : ui.values[0];
+        var max = ui.values[1] === (currentYear + 1) ? '' : ui.values[1];
+        var message = 'Released ';
+        if (min === '' && max === '') {
+            message += 'in any year';
+        } else if (min === '') {
+            message += 'through ' + max;
+        } else if (max === '') {
+            message += 'after ' + min;
+        } else {
+            message += '' + min + ' - ' + max;
+        }
+        $('#initial_release_year_criteria_desc').text(message);
+    }).slider('values', [ 1887, currentYear + 1 ] );
     $('#runtime_slider').simplicitySlider({
       input: ['input[name="runtime_min"]', 'input[name="runtime_max"]'],
       min: 0,
       max: 361,
       any: [0, 361],
       range: true
-    });
+    }).bind('slide slidechange', function (evt, ui) {
+        var min = ui.values[0] === 0 ? '' : ui.values[0];
+        var max = ui.values[1] === 361 ? '' : ui.values[1];
+        var message = 'Runtime ';
+        if (min === '' && max === '') {
+            message += 'of any length';
+        } else if (min === '') {
+            message += 'up to ' + minutesToText(max);
+        } else if (max === '') {
+            message += 'at least ' + minutesToText(min);
+        } else {
+            message += 'from ' + minutesToText(min) + ' to ' + minutesToText(max);
+        }
+        $('#runtime_criteria_desc').text(message);
+    }).slider('values', [ 0, 361 ] );
     $('#genre,#rating').simplicityFacetedSelect().hide();
     $('#genre_fancy').simplicityFancySelect({
         select: '#genre'
