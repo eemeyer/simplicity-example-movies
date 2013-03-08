@@ -1,5 +1,5 @@
 (function ($, window) {
-    window.search_controller = function (state) {
+    window.searchController = function (state) {
         var pageSize = 10;
         var request = {
             criteria: [],

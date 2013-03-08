@@ -1,6 +1,6 @@
 (function ($, window) {
     var apiKey = '&key=AIzaSyDf2i19WtZ53A9TiZ2W5zZ-otiAbR1hS8s';
-    window.search_results = function (target, data) {
+    window.searchResults = function (target, data) {
         var results = $('<div><div class="summary">There are <span class="exact"/> exact matches out of <span class="total"/> results</div></div>');
         var discoveryResponse = data._discovery.response;
         results.find(".exact").text(discoveryResponse.exactSize);
@@ -69,9 +69,9 @@
                 right.append($('<div class="film-writer"/>').html('Written by ' + arrayToSentenceFragment(item.written_by)));
             }
             if ($.isArray(item.starring_actor) && item.starring_actor.length > 0) {
-                var use_characters = $.isArray(item.starring_character) && item.starring_actor.length === item.starring_character.length;
+                var useCharacters = $.isArray(item.starring_character) && item.starring_actor.length === item.starring_character.length;
                 var starring = [];
-                if (use_characters) {
+                if (useCharacters) {
                     $.each(item.starring_actor, function (idx, value) {
                         var desc = value;
                         if (item.starring_character[idx] !== '') {

@@ -56,7 +56,7 @@ $(function() {
         select: '#rating'
     });
     $('#results').simplicitySearchResults({
-        resultsCallback: window.search_results
+        resultsCallback: window.searchResults
     });
     $('#pagination_top,#pagination_bottom').simplicityPagination();
     $('button[name="resetSearch"]').click(function () {
@@ -69,7 +69,7 @@ $(function() {
         .simplicityPageSnapBack()
         .simplicityDiscoverySearch({
             url: 'http://freebase-movies.discoverysearchengine.com:8090/ws/query',
-            controllerCallback: window.search_controller,
+            controllerCallback: window.searchController,
             backend: 'engine'
         })
         .simplicityDiscoverySearch('search');
