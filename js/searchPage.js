@@ -2,12 +2,12 @@ $(function() {
     $('body').simplicityState();
     $('' +
         '#q,#genre,#rating,' +
-        'input[name="initial_release_year_min"],input[name="initial_release_year_max"],' +
-        'input[name="runtime_min"],input[name="runtime_max"]'
+        'input[name="initialReleaseYearMin"],input[name="initialReleaseYearMax"],' +
+        'input[name="runtimeMin"],input[name="runtimeMax"]'
     ).simplicityInputs();
     var currentYear = new Date().getFullYear();
-    $('#initial_release_year_slider').simplicitySlider({
-        input: ['input[name="initial_release_year_min"]', 'input[name="initial_release_year_max"]'],
+    $('#initialReleaseYearSlider').simplicitySlider({
+        input: ['input[name="initialReleaseYearMin"]', 'input[name="initialReleaseYearMax"]'],
         min: 1887,
         max: currentYear + 1,
         any:[1887, currentYear + 1],
@@ -25,10 +25,10 @@ $(function() {
         } else {
             message += '' + min + ' - ' + max;
         }
-        $('#initial_release_year_criteria_desc').text(message);
+        $('#initialReleaseYearCriteriaDesc').text(message);
     }).slider('values', [ 1887, currentYear + 1 ] );
-    $('#runtime_slider').simplicitySlider({
-      input: ['input[name="runtime_min"]', 'input[name="runtime_max"]'],
+    $('#runtimeSlider').simplicitySlider({
+      input: ['input[name="runtimeMin"]', 'input[name="runtimeMax"]'],
       min: 0,
       max: 361,
       any: [0, 361],
@@ -46,19 +46,19 @@ $(function() {
         } else {
             message += 'from ' + minutesToText(min) + ' to ' + minutesToText(max);
         }
-        $('#runtime_criteria_desc').text(message);
+        $('#runtimeCriteriaDesc').text(message);
     }).slider('values', [ 0, 361 ] );
     $('#genre,#rating').simplicityFacetedSelect().hide();
-    $('#genre_fancy').simplicityFancySelect({
+    $('#genreFancy').simplicityFancySelect({
         select: '#genre'
     });
-    $('#rating_fancy').simplicityFancySelect({
+    $('#ratingFancy').simplicityFancySelect({
         select: '#rating'
     });
     $('#results').simplicitySearchResults({
         resultsCallback: window.searchResults
     });
-    $('#pagination_top,#pagination_bottom').simplicityPagination();
+    $('#paginationTop,#paginationBottom').simplicityPagination();
     $('button[name="resetSearch"]').click(function () {
         $('body').simplicityState('reset');
     });

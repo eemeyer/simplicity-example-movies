@@ -45,9 +45,9 @@
                 id: state.rating
             });
         }
-        if (state.runtime_min || state.runtime_max) {
-            var min = Number(state.runtime_min);
-            var max = Number(state.runtime_max);
+        if (state.runtimeMin || state.runtimeMax) {
+            var min = Number(state.runtimeMin);
+            var max = Number(state.runtimeMax);
             min = isNaN(min) ? "" : min;
             max = isNaN(max) ? "" : max;
             request.criteria.push({
@@ -56,12 +56,12 @@
             });
         }
         var currentYear = String(new Date().getFullYear());
-        if (state.initial_release_year_min || state.initial_release_year_max) {
-            var initial_release_year_min = state.initial_release_year_min || '';
-            var initial_release_year_max = state.initial_release_year_max || '';
+        if (state.initialReleaseYearMin || state.initialReleaseYearMax) {
+            var initialReleaseYearMin = state.initialReleaseYearMin || '';
+            var initialReleaseYearMax = state.initialReleaseYearMax || '';
             request.criteria.push({
                 dimension: 'initial_release_year',
-                value: '[' + initial_release_year_min + ',' + initial_release_year_max + ']',
+                value: '[' + initialReleaseYearMin + ',' + initialReleaseYearMax + ']',
                 max: currentYear
             });
         } else {
